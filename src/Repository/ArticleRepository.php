@@ -45,7 +45,7 @@ class ArticleRepository extends ServiceEntityRepository
            ->where('a.active = :status')
            ->orderBy('a.id', 'ASC')
            ->setParameters([
-            'status'   => $status
+                'status'   => $status
             ])
            ->getQuery()
            ->getArrayResult();

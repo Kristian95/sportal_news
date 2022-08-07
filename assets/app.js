@@ -15,31 +15,32 @@ import React from 'react';
 import News from './js/components/news';
 import * as ReactDOMClient from 'react-dom/client';
 import axios from 'axios';
-
+import NewsForm from './js/components/news-form';
+import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            entries: []
+            news: []
         };
     }
 
     componentDidMount() {
         axios.get('http://localhost:8000/articles')
             .then(response => {
-                const entries = response.data;
-                console.log(entries)
-                this.setState({ entries });
+                const news = response.data;
+                this.setState({ news });
             });
     }
 
     render() {
         return (
-            <div className="row">
-                {this.state.entries.map(
-                    ({ id, name, text }) => (
+            <div className="container">
+                <NewsForm></NewsForm>
+                {this.state.news.map(
+                    ({ id, name, text, created_at }) => (
                         <News
                             key={id}
                             name={name}

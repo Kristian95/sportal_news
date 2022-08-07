@@ -1,6 +1,6 @@
 import React from 'react';
  
-const News = ({ id, name, text }) => (
+const News = ({ id, name ,text }) => (
     <div key={id} className="card col-md-4" style={{width:200}}>
         <div className="card-body">
             <p>{id}</p>
