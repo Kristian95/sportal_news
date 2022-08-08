@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Article;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ArticleController extends AbstractController
 {
@@ -41,10 +44,22 @@ class ArticleController extends AbstractController
     /**
      * @Route("/articles_store", name="article_store"), "methods={"POST""}
      */
-    public function store(Request $request)
+    public function store(Request $request, EntityManagerInterface $em)
     {
-        //$article = new Article();
-        dd($request);
-
+        $data = json_decode($request->getContent(), true);
+        if (empty($data['name']) || empty($data['text'])) {
+            throw new NotFoundHttpException('Expecting mandatory parameters!');
+        }
+        $date = new \DateTimeImmutable();
+        $article = new Article();
+        $article->setName($data['name']);
+        $article->setText($data['text']);
+        $article->setCreatedAt($date);
+        $article->setPublishedAt($date);
+        $article->setActive('active');
+        $em->persist($article);
+        $em->flush();
+ 
+        return $this->json('Created new article successfully with id ' . $article->getId());
     }
 }
