@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class NewsForm extends React.Component {
     constructor(props) {
@@ -12,10 +13,15 @@ class NewsForm extends React.Component {
         const target = event.target;
 
         const name = target.name;
-        this.setState({name: event.target.value});  
+        this.setState({
+          [name]: event.target.value
+        });  
     }
     handleSubmit(event) {
       event.preventDefault();
+      axios.post('http://localhost:8000/articles_store', this.state)
+      .then(response => {
+      });
     }
   
     render() {

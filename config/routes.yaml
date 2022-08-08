@@ -5,3 +5,7 @@
 article_list:
     path: /articles
     controller: App\Controller\ArticleController::getArticles
+
+articles:
+    path: /articles
+    controller: App\Controller\ArticleController::store
