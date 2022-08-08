@@ -43,7 +43,7 @@ class ArticleController extends AbstractController
      */
     public function store(Request $request)
     {
-        $article = new Article();
+        //$article = new Article();
         dd($request);
 
     }

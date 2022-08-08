@@ -39,6 +39,7 @@ class App extends React.Component {
         return (
             <div className="container">
                 <NewsForm></NewsForm>
+                <div>
                 {this.state.news.map(
                     ({ id, name, text, created_at }) => (
                         <News
@@ -49,6 +50,7 @@ class App extends React.Component {
                         </News>
                     )
                 )}
+                </div>
             </div>
         );
     }
